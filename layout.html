@@ -1,0 +1,16 @@
+<!--
+<head>
+  <title>tweetsapp</title>
+</head>
+-->
+
+<template name="ApplicationLayout">
+  {{> yield "top"}}
+  <div class="row">
+    <div class="col-sm-8">
+      {{> yield}}
+      {{> yield "footer"}}
+    </div>
+    {{> yield "aside"}}
+  </div>
+</template>

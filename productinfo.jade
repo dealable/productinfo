@@ -1,0 +1,105 @@
+// variable assignment doesn't seem to work
+
+template(name='navbar')
+    header
+        h1 {{title}}
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse'
+              , data-target='#navbar'
+              , aria-expanded='false', aria-controls='navbar')
+            span.sr-only Toggle navigation
+            // each loop requires js helper, value gets assigned to unknown text
+            each arr3
+              span.icon-bar
+          a.navbar-brand(href='/') Tweet app
+        #navbar.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li.active: a(href='/') Home
+            li: a(href='vid') Video
+            li: a(href='git') Github
+
+template(name='tweets')
+  h1 Rant!
+  .input-group
+    span.input-group-addon url
+    input.form-control#tb_url(type='text', aria-describedby='basic-addon2'
+      , value='http://www.hockey-reference.com/players/s/shacked01.html')
+  p.lead
+    ul.list-group
+      li.list-group-item
+        button.btn.btn-primary(type='button') Header 
+          span.badge #{scrapedHeaderCount}
+        | #{scrapedHeader}
+
+      li.list-group-item
+        button.btn.btn-primary(type='button') Data: 
+          span.badge #{scrapedDataCount}
+        | #{scrapedData}
+
+  .input-group
+    span.input-group-addon selector
+    input.form-control#tb_header(type='text', aria-describedby='basic-addon1'
+      , value='#stats_basic_nhl > thead > tr:nth-child(2)')
+
+  input#bt_header(type='submit', value='Get Header using cheerio.js')
+  br
+  br
+
+  .input-group
+    span.input-group-addon selector
+    input.form-control#tb_data(type='text', aria-describedby='basic-addon1'
+      , value='#stats_basic_nhl > tbody > tr')
+
+  input#bt_data(type='submit', value='Get Data using jquery/jsdom')
+  br
+  br
+
+  .input-group
+    span.input-group-addon root
+    input.form-control#tb_table_root(type='text', aria-describedby='basic-addon1'
+      , value='#stats_basic_nhl tr')
+  .input-group
+    span.input-group-addon header
+    input.form-control#tb_table_header(type='text', aria-describedby='basic-addon1'
+    , value='th')
+    span.input-group-addon data
+    input.form-control#tb_table_data(type='text', aria-describedby='basic-addon1'
+    , value='td')
+    
+
+  input#bt_table(type='submit', value='Get Table using labwingslab/x-ray')
+
+  ul.list-group
+    li.list-group-item
+      button.btn.btn-primary(type='button') Table: 
+        span.badge #{scrapedTableCount}
+      | #{scrapedTable}
+        
+template(name='urlbottom')
+  // iframe for url
+  h3 page to scrape
+  iframe.embed-responsive-item.embedpage(
+    src='http://www.hockey-reference.com/players/s/shacked01.html#div_stats_basic_nhl'
+    , width='800px', height='500px')
+
+template(name='urlside')
+  // iframe for jquery reference
+  .col-sm-3
+    h3 selector reference
+    iframe#jquery_ref.embed-responsive-item.embedpage(src='http://www.w3schools.com/jquery/jquery_ref_selectors.asp'
+      , width='400px', height='1000px')
+
+template(name='git')
+  // iframe for url
+  h3 Github
+  a(href='https://github.com/DeBraid/meteor-tutorial-http-and-session-vars') link
+  iframe.embed-responsive-item.embedpage(
+    src='https://github.com/DeBraid/meteor-tutorial-http-and-session-vars'
+    , width='800px', height='500px')
+template(name='vid')
+  h3 YouTube
+  a(href='https://youtu.be/QA0_0SPd3P8?list=LLNmo1kUC3BhCf45a64xl5oQ') Link
+  iframe.embed-responsive-item.embedpage(
+    src='https://youtu.be/QA0_0SPd3P8?list=LLNmo1kUC3BhCf45a64xl5oQ')
