@@ -13,19 +13,44 @@ template(name='navbar')
             // each loop requires js helper, value gets assigned to unknown text
             each arr3
               span.icon-bar
-          a.navbar-brand(href='/') Tweet app
+          a.navbar-brand(href='/') Product Info
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
             li.active: a(href='/') Home
-            li: a(href='vid') Video
+            li: a(href='vid') Market
             li: a(href='git') Github
 
 template(name='tweets')
-  h1 Rant!
+  h3 Identify Product
   .input-group
-    span.input-group-addon url
-    input.form-control#tb_url(type='text', aria-describedby='basic-addon2'
-      , value='http://www.hockey-reference.com/players/s/shacked01.html')
+    span.input-group-btn
+      button.btn.btn-default#bt_amzn(type='button')  Amazon URL
+    input.form-control#tb_amzn(type='text', aria-describedby='basic-addon2'
+      , value='#{amznUrl}')
+  .input-group
+    span.input-group-addon root
+    input.form-control#tb_amzn_root(type='text', aria-describedby='basic-addon1'
+      , value='#{amznRoot}')
+  .input-group
+    span.input-group-addon title
+    input.form-control#tb_amzn_title(type='text', aria-describedby='basic-addon1'
+      , value='#{amznTitle}')
+    span.input-group-addon img
+    input.form-control#tb_amzn_img(type='text', aria-describedby='basic-addon1'
+      , value='#{amznImg}')
+  .input-group
+    span.input-group-addon dataroot
+    input.form-control#tb_amzn_dataroot(type='text', aria-describedby='basic-addon1'
+    , value='#{amznDataroot}')
+  .input-group
+    span.input-group-addon header
+    input.form-control#tb_amzn_header(type='text', aria-describedby='basic-addon1'
+    , value='#{amznHeader}')
+    span.input-group-addon data
+    input.form-control#tb_amzn_data(type='text', aria-describedby='basic-addon1'
+    , value='#{amznData}')
+
+
   p.lead
     ul.list-group
       li.list-group-item
@@ -39,9 +64,14 @@ template(name='tweets')
         | #{scrapedData}
 
   .input-group
+    span.input-group-addon url
+    input.form-control#tb_url(type='text', aria-describedby='basic-addon2'
+      , value='#{amznUrl}')
+      
+  .input-group
     span.input-group-addon selector
     input.form-control#tb_header(type='text', aria-describedby='basic-addon1'
-      , value='#stats_basic_nhl > thead > tr:nth-child(2)')
+      , value='#{amznRoot} #{amznHeader}')
 
   input#bt_header(type='submit', value='Get Header using cheerio.js')
   br
@@ -50,7 +80,7 @@ template(name='tweets')
   .input-group
     span.input-group-addon selector
     input.form-control#tb_data(type='text', aria-describedby='basic-addon1'
-      , value='#stats_basic_nhl > tbody > tr')
+      , value='#{amznRoot} #{amznData}')
 
   input#bt_data(type='submit', value='Get Data using jquery/jsdom')
   br
@@ -59,14 +89,14 @@ template(name='tweets')
   .input-group
     span.input-group-addon root
     input.form-control#tb_table_root(type='text', aria-describedby='basic-addon1'
-      , value='#stats_basic_nhl tr')
+      , value='#{amznRoot}')
   .input-group
     span.input-group-addon header
     input.form-control#tb_table_header(type='text', aria-describedby='basic-addon1'
-    , value='th')
+    , value='#{amznHeader}')
     span.input-group-addon data
     input.form-control#tb_table_data(type='text', aria-describedby='basic-addon1'
-    , value='td')
+    , value='#{amznData}')
     
 
   input#bt_table(type='submit', value='Get Table using labwingslab/x-ray')
@@ -81,7 +111,7 @@ template(name='urlbottom')
   // iframe for url
   h3 page to scrape
   iframe.embed-responsive-item.embedpage(
-    src='http://www.hockey-reference.com/players/s/shacked01.html#div_stats_basic_nhl'
+    src='#{amznUrl}'
     , width='800px', height='500px')
 
 template(name='urlside')
